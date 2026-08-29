@@ -89,5 +89,5 @@ regardless of this repository's own license terms.
 If you use this code or the accompanying paper, please cite:
 
 ```
-<paper citation to be added>
+Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). Automated BIM generation from inconsistent multi-view raster architectural drawings with missing dimensions. Automation in Construction, 187, 106971.
 ```
