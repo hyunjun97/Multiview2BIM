@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environment
+.env
+venv/
+.venv/
+
+# OS
+.DS_Store
+
+# Runtime data (produced by running the pipeline, not tracked)
+Drawings/
+
+# Ultralytics run artifacts, if the notebook is used for training
+runs/

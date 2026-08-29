@@ -1,0 +1,11 @@
+torch>=2.0
+ultralytics>=8.3
+sahi>=0.11
+opencv-python>=4.8
+numpy>=1.24
+matplotlib>=3.7
+shapely>=2.0
+scikit-learn>=1.3
+scipy>=1.10
+Pillow>=10.0
+openai>=1.0
