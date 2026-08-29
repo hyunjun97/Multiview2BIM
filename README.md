@@ -1,28 +1,41 @@
 # Multiview2BIM
 
-Multiview2BIM converts a set of 2D architectural drawings — a floor plan and its
-elevation drawings — into structured 3D building data (BIM). It combines
-YOLO11-seg object detection, geometric post-processing, and an LMM-based scale
-reader to recover wall/window/door geometry with real-world dimensions.
+This repository is the official implementation of the paper below, which converts a set
+of 2D architectural drawings — a floor plan and its elevation drawings — into structured
+3D building data (BIM). It combines YOLO11-seg object detection, geometric
+post-processing, and an LMM-based scale reader to recover wall/window/door geometry with
+real-world dimensions.
 
-## Pipeline
+- **Paper:** Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). *Automated BIM
+  generation from inconsistent multi-view raster architectural drawings with missing
+  dimensions.* Automation in Construction, 187, 106971.
+- **Authors:** Hyunjun Lee et al. (Building Informatics Group, Yonsei University)
 
-The notebook [`Multiview2BIM.ipynb`](Multiview2BIM.ipynb) is organized into five stages, run top to bottom:
+## Introduction
 
-1. **Floor plan parsing** — detect Wall/Window/Door objects (YOLO11-seg + SAHI), find the
-   outermost slab contour, and assign a compass direction (N/S/E/W) to each floor's
-   outermost openings.
-2. **Elevation recognition** — detect objects in elevation drawings, cluster them into
-   floors, and convert to the building's coordinate system.
-3. **Multi-view correspondence matching** — match floor-plan objects to elevation objects
-   (same floor, same direction) via the Hungarian algorithm to recover full 3D positions.
-4. **Post-processing** — skeletonize walls into centerlines and corner points, then host
-   windows/doors onto their nearest wall.
-5. **Dimensional recognition & calibration** — read the drawing's paper size/scale with
-   GPT-4o-mini and convert every coordinate from pixels to millimeters.
+The notebook [`Multiview2BIM.ipynb`](Multiview2BIM.ipynb) implements the full pipeline,
+organized into five stages that run top to bottom:
+
+- [x] **Floor plan parsing** — detect Wall/Window/Door objects (YOLO11-seg + SAHI), find
+      the outermost slab contour, and assign a compass direction (N/S/E/W) to each
+      floor's outermost openings.
+- [x] **Elevation recognition** — detect objects in elevation drawings, cluster them into
+      floors, and convert to the building's coordinate system.
+- [x] **Multi-view correspondence matching** — match floor-plan objects to elevation
+      objects (same floor, same direction) via the Hungarian algorithm to recover full 3D
+      positions.
+- [x] **Post-processing** — skeletonize walls into centerlines and corner points, then
+      host windows/doors onto their nearest wall.
+- [x] **Dimensional recognition & calibration** — read the drawing's paper size/scale
+      with GPT-4o-mini and convert every coordinate from pixels to millimeters.
 
 Each stage reads/writes JSON annotation files under `input/` and `output/` (created at
 runtime, not tracked in this repo — see **Data layout** below).
+
+## Updates
+
+- **`2026/08/29`**: Initial public release — full pipeline notebook, pretrained `FP.pt` /
+  `ELEV.pt` detection weights, and documentation.
 
 ## Setup
 
@@ -92,8 +105,22 @@ regardless of this repository's own license terms.
 
 ## Citation
 
-If you use this code or the accompanying paper, please cite:
+If you use this code, please cite our paper:
 
+```bibtex
+@article{Multiview2BIM2026,
+  title   = {Automated BIM generation from inconsistent multi-view raster architectural drawings with missing dimensions},
+  author  = {Lee, H. and Jang, S. and Lee, J. and Jeong, H. D. and Lee, G.},
+  journal = {Automation in Construction},
+  volume  = {187},
+  pages   = {106971},
+  year    = {2026}
+}
 ```
-Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). Automated BIM generation from inconsistent multi-view raster architectural drawings with missing dimensions. Automation in Construction, 187, 106971.
-```
+
+## Acknowledgements
+
+This project builds on [Ultralytics YOLO11](https://github.com/ultralytics/ultralytics)
+for instance segmentation, [SAHI](https://github.com/obss/sahi) for sliced inference, and
+the OpenAI API for LMM-based scale reading. Thanks to their maintainers for these
+open-source tools.
