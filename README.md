@@ -34,8 +34,7 @@ runtime, not tracked in this repo — see **Data layout** below).
 
 ## Updates
 
-- **`2026/08/29`**: Initial public release — full pipeline notebook, pretrained `FP.pt` /
-  `ELEV.pt` detection weights, and documentation.
+- **`2026/08/29`**: Initial public release — full pipeline notebook and documentation.
 
 ## Setup
 
@@ -51,22 +50,21 @@ export OPENAI_API_KEY="sk-..."
 
 ## Pretrained weights
 
-Two YOLO11-seg checkpoints are included, both fine-tuned to detect `Wall`, `Window`,
-and `Door`:
+Pre-trained model weights are **not included** in this repository. Stage 1 and Stage 2
+each need a YOLO11-seg checkpoint fine-tuned to detect `Wall`, `Window`, and `Door`:
 
-- `FP.pt` — floor plan object detector (used in Stage 1)
-- `ELEV.pt` — elevation object detector (used in Stage 2)
+- `MODEL_PATH` in Stage 1 — a floor plan object detector
+- `model_path` in Stage 2 — an elevation object detector
 
-The notebook's `MODEL_PATH` / `model_path` variables already point at these files. Change
-them if you want to use your own compatible weights instead.
+Train your own with [Ultralytics](https://github.com/ultralytics/ultralytics) on your own
+annotated floor plan / elevation data, then point these variables at your `.pt` files.
 
 **Ultralytics/YOLO license notice:** this project uses the [Ultralytics](https://www.ultralytics.com/)
-YOLO11 implementation, which is licensed under **AGPL-3.0**. The provided weights were
-produced with that library. If you intend to use this code or the provided weights in a
-closed-source or commercial product, review the
-[Ultralytics licensing terms](https://www.ultralytics.com/license) — a separate
-Enterprise License from Ultralytics may be required independent of this repository's own
-license.
+YOLO11 implementation, which is licensed under **AGPL-3.0**. If you train a model with it
+and intend to use the code or the resulting weights in a closed-source or commercial
+product, review the [Ultralytics licensing terms](https://www.ultralytics.com/license) —
+a separate Enterprise License from Ultralytics may be required independent of this
+repository's own license.
 
 ## Data layout
 

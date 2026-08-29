@@ -17,3 +17,6 @@ venv/
 
 # Ultralytics run artifacts, if the notebook is used for training
 runs/
+
+# Model weights (not distributed in this repository, see README)
+*.pt
