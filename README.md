@@ -21,8 +21,8 @@ The notebook [`Multiview2BIM.ipynb`](Multiview2BIM.ipynb) is organized into five
 5. **Dimensional recognition & calibration** — read the drawing's paper size/scale with
    GPT-4o-mini and convert every coordinate from pixels to millimeters.
 
-Each stage reads/writes JSON annotation files under a `Drawings/` working directory
-(not included in this repository — see **Data layout** below).
+Each stage reads/writes JSON annotation files under `input/` and `output/` (created at
+runtime, not tracked in this repo — see **Data layout** below).
 
 ## Setup
 
@@ -41,11 +41,11 @@ export OPENAI_API_KEY="sk-..."
 Two YOLO11-seg checkpoints are included, both fine-tuned to detect `Wall`, `Window`,
 and `Door`:
 
-- `FP_best_v2.pt` — floor plan object detector (used in Stage 1)
-- `ED_best.pt` — elevation object detector (used in Stage 2)
+- `FP.pt` — floor plan object detector (used in Stage 1)
+- `ELEV.pt` — elevation object detector (used in Stage 2)
 
-Point the notebook's `MODEL_PATH` / `model_path` variables at these files (or your own
-compatible weights) before running Stages 1–2.
+The notebook's `MODEL_PATH` / `model_path` variables already point at these files. Change
+them if you want to use your own compatible weights instead.
 
 **Ultralytics/YOLO license notice:** this project uses the [Ultralytics](https://www.ultralytics.com/)
 YOLO11 implementation, which is licensed under **AGPL-3.0**. The provided weights were
@@ -57,21 +57,27 @@ license.
 
 ## Data layout
 
-The notebook expects a working directory named `Drawings/` (created at runtime, not
-tracked in this repo) with roughly this structure:
+The notebook reads source drawings from `input/` and writes every intermediate and final
+result to `output/` (both created at runtime, not tracked in this repo):
 
 ```
-Drawings/
-├── FP/
-│   └── Images/            # floor plan images, named <name>_<floor>.<ext>, e.g. plan_1.png
-└── ED/
-    └── Images/             # elevation images, filename must contain a direction keyword
+input/
+├── FP/                     # floor plan images, named <name>_<floor>.<ext>, e.g. plan_1.png
+└── ELEV/                   # elevation images, filename must contain a direction keyword
                              # (North / South / East / West), e.g. house_east.png
+
+output/
+├── FP/                     # Stage 1 intermediate results + visualizations
+├── ELEV/                   # Stage 2 intermediate results + visualizations
+├── Matched/                # Stage 3 multi-view matching results
+├── PostProcessing/         # Stage 4 skeletonization / wall-vectorization results
+├── Scale/                  # Stage 5 scale-reading results
+├── Calibrated/             # Stage 5 dimension-calibrated results
+└── Final/                  # final BIM-ready JSON per drawing
 ```
 
-Every intermediate/output folder referenced later in the notebook (`result_FP`,
-`result2_FP`, `viz_ED`, `PostProcessing/Skeleton*`, `Matched/outputs`, `Calibrated`,
-`Final`, ...) is created automatically as each stage runs.
+Everything under `output/` is created automatically as each stage runs — you only need to
+populate `input/FP` and `input/ELEV` before starting.
 
 ## License
 

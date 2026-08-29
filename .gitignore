@@ -12,7 +12,8 @@ venv/
 .DS_Store
 
 # Runtime data (produced by running the pipeline, not tracked)
-Drawings/
+/input/
+/output/
 
 # Ultralytics run artifacts, if the notebook is used for training
 runs/
