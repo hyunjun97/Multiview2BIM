@@ -33,7 +33,7 @@ runtime, not tracked in this repo — see **Data layout** below).
 
 ## Updates
 
-- **`2026/08/29`**: Initial public release — full pipeline notebook and documentation.
+- **`2026/08/30`**: Initial public release — full pipeline notebook and documentation.
 
 ## Setup
 
