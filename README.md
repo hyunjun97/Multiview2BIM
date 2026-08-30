@@ -115,7 +115,8 @@ If you use this code, please cite our paper:
   journal = {Automation in Construction},
   volume  = {187},
   pages   = {106971},
-  year    = {2026}
+  year    = {2026},
+  doi     = {10.1016/j.autcon.2026.106971}
 }
 ```
 
