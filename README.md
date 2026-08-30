@@ -2,9 +2,11 @@
 
 This repository is the official implementation of the paper below, which converts a set
 of 2D architectural drawings — a floor plan and its elevation drawings — into structured
-3D building data (BIM). It combines YOLO11-seg object detection, geometric
-post-processing, and an LMM-based scale reader to recover wall/window/door geometry with
-real-world dimensions.
+BIM-ready 3D geometry. It follows the paper's two-phase method: YOLO11-seg instance
+segmentation and LMM-based dimensional calibration recover each drawing's objects and
+real-world scale, then cost-matrix/Hungarian-algorithm correspondence matching and
+skeleton-based wall vectorization fuse the floor plan and elevations into a single
+geometrically consistent 3D representation.
 
 - **Paper:** Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). *Automated BIM
   generation from inconsistent multi-view raster architectural drawings with missing
@@ -16,18 +18,18 @@ real-world dimensions.
 The notebook [`Multiview2BIM.ipynb`](Multiview2BIM.ipynb) implements the full pipeline,
 organized into five stages that run top to bottom:
 
-- [x] **Floor plan parsing** — detect Wall/Window/Door objects (YOLO11-seg + SAHI), find
-      the outermost slab contour, and assign a compass direction (N/S/E/W) to each
-      floor's outermost openings.
-- [x] **Elevation recognition** — detect objects in elevation drawings, cluster them into
-      floors, and convert to the building's coordinate system.
+- [x] **Floor plan parsing** — segment Wall/Window/Door instances with YOLO11-seg + SAHI
+      (Slicing Aided Hyper Inference), find the outermost slab contour, and assign a
+      compass direction (N/S/E/W) to each floor's outermost openings.
+- [x] **Elevation recognition** — segment objects in elevation drawings, cluster them into
+      floors with DBSCAN, and convert to the building's coordinate system.
 - [x] **Multi-view correspondence matching** — match floor-plan objects to elevation
-      objects (same floor, same direction) via the Hungarian algorithm to recover full 3D
-      positions.
-- [x] **Post-processing** — skeletonize walls into centerlines and corner points, then
-      host windows/doors onto their nearest wall.
-- [x] **Dimensional recognition & calibration** — read the drawing's paper size/scale
-      with GPT-4o-mini and convert every coordinate from pixels to millimeters.
+      objects (same floor, same direction) via a cost-matrix formulation and the
+      Hungarian algorithm to recover full 3D positions.
+- [x] **Post-processing (BIM element instantiation)** — skeletonize walls into centerlines
+      and corner points, then host windows/doors onto their nearest wall.
+- [x] **Dimensional recognition & calibration** — read the drawing's paper size/scale with
+      an LMM (GPT-4o-mini) and convert every coordinate from pixels to millimeters.
 
 Each stage reads/writes JSON annotation files under `input/` and `output/` (created at
 runtime, not tracked in this repo — see **Data layout** below).
@@ -51,10 +53,11 @@ export OPENAI_API_KEY="sk-..."
 ## Pretrained weights
 
 Pre-trained model weights are **not included** in this repository. Stage 1 and Stage 2
-each need a YOLO11-seg checkpoint fine-tuned to detect `Wall`, `Window`, and `Door`:
+each need a YOLO11-seg checkpoint fine-tuned to segment `Wall`, `Window`, and `Door`
+instances:
 
-- `MODEL_PATH` in Stage 1 — a floor plan object detector
-- `model_path` in Stage 2 — an elevation object detector
+- `MODEL_PATH` in Stage 1 — a floor plan instance segmentation model
+- `model_path` in Stage 2 — an elevation instance segmentation model
 
 Train your own with [Ultralytics](https://github.com/ultralytics/ultralytics) on your own
 annotated floor plan / elevation data, then point these variables at your `.pt` files.
@@ -119,6 +122,6 @@ If you use this code, please cite our paper:
 ## Acknowledgements
 
 This project builds on [Ultralytics YOLO11](https://github.com/ultralytics/ultralytics)
-for instance segmentation, [SAHI](https://github.com/obss/sahi) for sliced inference, and
-the OpenAI API for LMM-based scale reading. Thanks to their maintainers for these
-open-source tools.
+for instance segmentation, [SAHI](https://github.com/obss/sahi) (Slicing Aided Hyper
+Inference) for tiled detection on large drawings, and the OpenAI API for LMM-based scale
+reading. Thanks to their maintainers for these open-source tools.
