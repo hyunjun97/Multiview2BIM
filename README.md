@@ -2,7 +2,7 @@
 
 This repository is the official implementation of the paper below, which converts a set
 of 2D architectural drawings — a floor plan and its elevation drawings — into structured
-3D building data (BIM). It combines YOLO11-seg object detection, geometric
+3D building data (BIM). It combines YOLO11-seg instance segmentation, geometric
 post-processing, and an LMM-based scale reader to recover wall/window/door geometry with
 real-world dimensions.
 
