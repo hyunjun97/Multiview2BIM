@@ -11,7 +11,6 @@ geometrically consistent 3D representation.
 - **Paper:** Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). *Automated BIM
   generation from inconsistent multi-view raster architectural drawings with missing
   dimensions.* Automation in Construction, 187, 106971.
-- **Authors:** Hyunjun Lee et al. (Building Informatics Group, Yonsei University)
 
 ## Introduction
 
@@ -36,7 +35,7 @@ runtime, not tracked in this repo — see **Data layout** below).
 
 ## Updates
 
-- **`2026/08/29`**: Initial public release — full pipeline notebook and documentation.
+- **`2026/08/30`**: Initial public release — full pipeline notebook and documentation.
 
 ## Setup
 
