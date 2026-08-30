@@ -10,7 +10,7 @@ geometrically consistent 3D representation.
 
 - **Paper:** Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). *Automated BIM
   generation from inconsistent multi-view raster architectural drawings with missing
-  dimensions.* Automation in Construction, 187, 106971. [[https://doi.org/10.1016/j.autcon.2026.106971]]
+  dimensions.* Automation in Construction, 187, 106971. https://doi.org/10.1016/j.autcon.2026.106971
 
 ## Introduction
 
