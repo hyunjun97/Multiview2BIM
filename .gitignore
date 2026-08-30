@@ -20,3 +20,5 @@ runs/
 
 # Model weights (not distributed in this repository, see README)
 *.pt
+*.pth
+*.ckpt

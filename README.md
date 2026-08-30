@@ -92,7 +92,7 @@ populate `input/FP` and `input/ELEV` before starting.
 
 ## License
 
-- **Code** (notebook, weights): [PolyForm Noncommercial License 1.0.0](LICENSE) — free for
+- **Code** (this notebook): [PolyForm Noncommercial License 1.0.0](LICENSE) — free for
   academic and other noncommercial use; commercial use requires a separate agreement.
 - **Written content** of this README: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
 
