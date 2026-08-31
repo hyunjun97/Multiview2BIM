@@ -128,7 +128,7 @@ If you use this code, please cite our paper:
   [DOI](https://doi.org/10.1016/j.autcon.2026.106971)
 - Lee, H., Jang, S., & Lee, G. (2025). Training Dataset Composition Strategies for
   Improving Floor Plan and Elevation Recognition. *Proceedings of the 2025 European
-  Conference on Computing in Construction (EC3 2025)*, Computing in Construction, 6.
+  Conference on Computing in Construction (EC3 2025)*.
   [DOI](https://doi.org/10.35490/EC3.2025.468)
 
 ## Acknowledgements
