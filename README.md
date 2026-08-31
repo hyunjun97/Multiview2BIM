@@ -8,11 +8,6 @@ real-world scale, then cost-matrix/Hungarian-algorithm correspondence matching a
 skeleton-based wall vectorization fuse the floor plan and elevations into a single
 geometrically consistent 3D representation.
 
-- **Paper:** Lee, H., Jang, S., Lee, J., Jeong, H. D., & Lee, G. (2026). *Automated BIM
-  generation from inconsistent multi-view raster architectural drawings with missing
-  dimensions.* Automation in Construction, 187, 106971.
-  [Link](https://doi.org/10.1016/j.autcon.2026.106971)
-
 ## Introduction
 
 The notebook [`Multiview2BIM.ipynb`](Multiview2BIM.ipynb) implements the full pipeline,
